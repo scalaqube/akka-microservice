@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  miepweb:
+      build: miep-web
+      image: miep-web
+      ports:
+       - "8081:80"
+
+  miepadminweb:
+      build: miep-admin-web
+      image: miep-admin-web
+      ports:
+       - "8083:80"
+
+  akkaseed:
+      image: miep-service:1.1
+      hostname: "akkaseed"
+      command: "-Dakka.remote.netty.tcp.hostname=akkaseed"
+
+  akkanode:
+      image: "miep-service:1.1"
+
+  mongo:
+      image: mongo:3.3.8
+
+  eventstore:
+      image: eventstore/eventstore:release-3.9.1
+      ports:
+       - "2113:2113"
+       - "1113:1113"

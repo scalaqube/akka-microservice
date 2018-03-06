@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  web:
+      build: web
+      image: akka-web
+      ports: 
+       - "8083:80" 
+      # environment:
+      #   - "constraint:node==jcoucp0-ucpnode"
+
+
+  akkaseed:
+      image: rest-service:1.1
+      hostname: "akkaseed"
+      command: "-Dakka.remote.netty.tcp.hostname=akkaseed"
+#     ports: ["9001:9001"]
+
+  akkanode:
+      image: "rest-service:1.1"
+
+  mongo:
+      image: mongo:3.3.8
+
+  eventstore:
+      image: eventstore/eventstore:release-3.9.1
+      ports:
+       - "2113:2113"
+       - "1113:1113"
